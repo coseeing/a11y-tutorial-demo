@@ -1,8 +1,8 @@
 {
-	"name": "a11y-chart-react",
+	"name": "coseeing-a11y-tree-demo",
 	"private": true,
 	"version": "0.0.0",
-	"homepage": "https://yo7ee.github.io/a11y-chart-react/",
+	"homepage": "https://simonecheng.github.io/coseeing-a11y-tree-demo",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
