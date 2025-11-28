@@ -18,7 +18,6 @@ function ComplexDemo() {
 				code={`<div
   role="status"
   aria-live="polite"
-  aria-atomic="true"
 >
   {notification}
 </div>`}
@@ -44,8 +43,7 @@ function ComplexDemo() {
 					</div>
 				</div>
 				<ExplanationBox>
-					aria-live="polite" 在使用者操作完成後通知、aria-atomic="true"
-					完整讀出整個區域內容。螢幕閱讀器會自動讀出通知訊息。
+					aria-live="polite" 在使用者操作完成後通知。螢幕閱讀器會自動讀出通知訊息。
 				</ExplanationBox>
 			</DemoSection>
 
