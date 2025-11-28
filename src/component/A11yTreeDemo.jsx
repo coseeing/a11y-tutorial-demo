@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import TextVsIconDemo from "./TextVsIconDemo";
 import LabelsDemo from "./LabelsDemo";
 import CorrectAriaDemo from "./CorrectAriaDemo";
@@ -7,6 +7,7 @@ import ComplexDemo from "./ComplexDemo";
 
 function A11yTreeDemo() {
 	const [activeTab, setActiveTab] = useState("text");
+	const tabRefs = useRef({});
 
 	const demos = [
 		{
@@ -27,7 +28,7 @@ function A11yTreeDemo() {
 		},
 		{
 			id: "wrong",
-			title: "錯誤的 ARIA 使用",
+			title: "錯誤使用 ARIA",
 			description: "不當使用 role 會導致 accessibility tree 失去語意",
 		},
 		{
@@ -36,6 +37,26 @@ function A11yTreeDemo() {
 			description: "混合使用各種 ARIA 屬性的實際案例",
 		},
 	];
+
+	useEffect(() => {
+		// 當 activeTab 改變時，將焦點移到新的 tab
+		if (tabRefs.current[activeTab]) {
+			tabRefs.current[activeTab].focus();
+		}
+	}, [activeTab]);
+
+	const handleKeyDown = (e, index) => {
+		let newIndex = index;
+		if (e.key === "ArrowLeft") {
+			newIndex = index > 0 ? index - 1 : demos.length - 1;
+		} else if (e.key === "ArrowRight") {
+			newIndex = index < demos.length - 1 ? index + 1 : 0;
+		} else {
+			return;
+		}
+		e.preventDefault();
+		setActiveTab(demos[newIndex].id);
+	};
 
 	return (
 		<div className="max-w-6xl mx-auto p-6">
@@ -47,11 +68,18 @@ function A11yTreeDemo() {
 			</p>
 
 			{/* Tab Navigation */}
-			<div className="flex gap-2 mb-6 border-b">
-				{demos.map((demo) => (
+			<div role="tablist" className="flex gap-2 mb-6 border-b">
+				{demos.map((demo, index) => (
 					<button
 						key={demo.id}
+						ref={(el) => (tabRefs.current[demo.id] = el)}
+						role="tab"
+						id={`tab-${demo.id}`}
+						aria-selected={activeTab === demo.id}
+						aria-controls={`panel-${demo.id}`}
+						tabIndex={activeTab === demo.id ? 0 : -1}
 						onClick={() => setActiveTab(demo.id)}
+						onKeyDown={(e) => handleKeyDown(e, index)}
 						className={`px-4 py-2 font-medium transition-colors ${
 							activeTab === demo.id
 								? "border-b-2 border-blue-500 text-blue-600"
@@ -64,7 +92,12 @@ function A11yTreeDemo() {
 			</div>
 
 			{/* Demo Content */}
-			<div className="bg-white rounded-lg shadow-md p-6">
+			<div
+				role="tabpanel"
+				id={`panel-${activeTab}`}
+				aria-labelledby={`tab-${activeTab}`}
+				className="bg-white rounded-lg shadow-md p-6"
+			>
 				<h2 className="text-xl font-semibold mb-2">
 					{demos.find((d) => d.id === activeTab)?.title}
 				</h2>
@@ -77,20 +110,6 @@ function A11yTreeDemo() {
 				{activeTab === "aria" && <CorrectAriaDemo />}
 				{activeTab === "wrong" && <WrongAriaDemo />}
 				{activeTab === "complex" && <ComplexDemo />}
-			</div>
-
-			{/* Instructions */}
-			<div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-4">
-				<h3 className="font-semibold text-blue-900 mb-2">
-					如何查看 Accessibility Tree
-				</h3>
-				<ul className="text-sm text-blue-800 space-y-1">
-					<li>• Chrome DevTools: Elements → Accessibility 面板</li>
-					<li>• Firefox DevTools: Accessibility 標籤</li>
-					<li>
-						• 使用螢幕閱讀器（如 NVDA, JAWS, VoiceOver）實際測試
-					</li>
-				</ul>
 			</div>
 		</div>
 	);

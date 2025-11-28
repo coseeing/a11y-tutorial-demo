@@ -6,25 +6,9 @@ function LabelsDemo() {
 		<div className="space-y-6">
 			{/* Input Label 比較 */}
 			<div className="border-t-4 border-purple-500 pt-4">
-				<h3 className="text-lg font-bold mb-4 text-purple-700">
+				<h4 className="text-lg font-bold mb-4 text-purple-700">
 					Input 的 Label 使用
-				</h3>
-
-				<DemoSection
-					title="❌ 不好的做法：沒有 label 的 input"
-					code={`<input type="text" placeholder="請輸入姓名" />`}
-				>
-					<input
-						type="text"
-						placeholder="請輸入姓名"
-						className="px-3 py-2 border rounded w-full max-w-md"
-					/>
-					<ExplanationBox type="error">
-						Accessibility tree 只會顯示「textbox」，沒有 accessible
-						name。螢幕閱讀器使用者不知道這個欄位的用途。Placeholder
-						不算是正式的 label。
-					</ExplanationBox>
-				</DemoSection>
+				</h4>
 
 				<DemoSection
 					title="✅ 好的做法：使用 <label> 元素"
@@ -69,9 +53,9 @@ function LabelsDemo() {
 
 			{/* Input aria-label vs title */}
 			<div className="border-t-4 border-indigo-500 pt-4 mt-8">
-				<h3 className="text-lg font-bold mb-4 text-indigo-700">
+				<h4 className="text-lg font-bold mb-4 text-indigo-700">
 					Input：aria-label vs title
-				</h3>
+				</h4>
 
 				<DemoSection
 					title="使用 aria-label（優先選擇）"
@@ -132,13 +116,24 @@ function LabelsDemo() {
 						則顯示為 tooltip。可以用 title 提供補充說明。
 					</ExplanationBox>
 				</DemoSection>
+
+				<DemoSection
+					title="❌ 不好的做法：沒有 label 的 input"
+					code={`<input type="text" placeholder="請輸入姓名" />`}
+				>
+					<input
+						type="text"
+						placeholder="請輸入姓名"
+						className="px-3 py-2 border rounded w-full max-w-md"
+					/>
+				</DemoSection>
 			</div>
 
 			{/* Image alt vs aria-label */}
 			<div className="border-t-4 border-pink-500 pt-4 mt-8">
-				<h3 className="text-lg font-bold mb-4 text-pink-700">
+				<h4 className="text-lg font-bold mb-4 text-pink-700">
 					Image：優先使用原生 alt 屬性
-				</h3>
+				</h4>
 
 				<DemoSection
 					title="✅ 推薦：使用 alt 屬性"
@@ -194,35 +189,6 @@ function LabelsDemo() {
 				</DemoSection>
 			</div>
 
-			{/* 優先順序總結 */}
-			<div className="bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-300 rounded-lg p-6 mt-8">
-				<h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-					<span className="text-2xl">📊</span>
-					Accessible Name 優先順序
-				</h3>
-				<div className="space-y-3 text-sm">
-					<div className="bg-white rounded p-3 shadow-sm">
-						<div className="font-bold text-blue-700 mb-1">1. aria-labelledby</div>
-						<div className="text-gray-600">指向其他元素的 ID，使用該元素的文字內容</div>
-					</div>
-					<div className="bg-white rounded p-3 shadow-sm">
-						<div className="font-bold text-blue-700 mb-1">2. aria-label</div>
-						<div className="text-gray-600">直接提供的標籤文字（會覆蓋原有內容）</div>
-					</div>
-					<div className="bg-white rounded p-3 shadow-sm">
-						<div className="font-bold text-blue-700 mb-1">3. &lt;label&gt; 或 alt</div>
-						<div className="text-gray-600">HTML 原生語意屬性（推薦優先使用）</div>
-					</div>
-					<div className="bg-white rounded p-3 shadow-sm">
-						<div className="font-bold text-blue-700 mb-1">4. title</div>
-						<div className="text-gray-600">最低優先，主要用於 tooltip，不應作為主要 label</div>
-					</div>
-					<div className="bg-white rounded p-3 shadow-sm">
-						<div className="font-bold text-blue-700 mb-1">5. placeholder</div>
-						<div className="text-gray-600">不算是正式 label，僅作為提示文字</div>
-					</div>
-				</div>
-			</div>
 		</div>
 	);
 }

@@ -49,33 +49,6 @@ function CorrectAriaDemo() {
 					螢幕閱讀器會同時讀出標籤和說明文字，提供完整資訊。
 				</ExplanationBox>
 			</DemoSection>
-
-			<DemoSection
-				title="✅ role 與 aria-live：動態更新通知"
-				code={`<div
-  role="status"
-  aria-live="polite"
->
-  已儲存變更
-</div>`}
-			>
-				<div className="space-y-3">
-					<button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-						儲存
-					</button>
-					<div
-						role="status"
-						aria-live="polite"
-						className="px-4 py-2 bg-green-100 text-green-800 rounded border border-green-300"
-					>
-						✓ 已成功儲存變更
-					</div>
-				</div>
-				<ExplanationBox>
-					使用 role="status" 和 aria-live="polite"
-					讓螢幕閱讀器自動通知使用者狀態變更。
-				</ExplanationBox>
-			</DemoSection>
 		</div>
 	);
 }
