@@ -10,6 +10,7 @@ import ComplexDemo from "./ComplexDemo";
 function A11yTutorialDemo() {
 	const [activeTab, setActiveTab] = useState("text");
 	const tabRefs = useRef({});
+	const [statusDemoInteracted, setStatusDemoInteracted] = useState(false);
 
 	const demos = [
 		{
@@ -54,6 +55,8 @@ function A11yTutorialDemo() {
 		if (tabRefs.current[activeTab]) {
 			tabRefs.current[activeTab].focus();
 		}
+		// 切換 tab 時重置 statusDemoInteracted
+		setStatusDemoInteracted(false);
 	}, [activeTab]);
 
 	const handleKeyDown = (e, index) => {
@@ -108,6 +111,11 @@ function A11yTutorialDemo() {
 				id={`panel-${activeTab}`}
 				aria-labelledby={`tab-${activeTab}`}
 				className="bg-white rounded-lg shadow-md p-6"
+				onKeyDown={(e) => {
+					if (e.key === "Tab" && activeTab === "status" && !statusDemoInteracted) {
+						setStatusDemoInteracted(true);
+					}
+				}}
 			>
 				<h2 className="text-xl font-semibold mb-2">
 					{demos.find((d) => d.id === activeTab)?.title}
@@ -120,7 +128,7 @@ function A11yTutorialDemo() {
 				{activeTab === "labels" && <LabelsDemo />}
 				{activeTab === "aria" && <CorrectAriaDemo />}
 				{activeTab === "wrong" && <WrongAriaDemo />}
-				{activeTab === "status" && <StatusDemo />}
+				{activeTab === "status" && <StatusDemo hasInteracted={statusDemoInteracted} />}
 				{activeTab === "region" && <RegionDemo />}
 				{activeTab === "complex" && <ComplexDemo />}
 			</div>

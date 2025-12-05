@@ -61,7 +61,7 @@ function verifyTaiwanID(id) {
 import DemoSection from "./common/DemoSection";
 import ExplanationBox from "./common/ExplanationBox";
 
-function StatusDemo() {
+function StatusDemo({ hasInteracted = false }) {
 	const [triState, setTriState] = useState("false");
 	const [isMuted, setIsMuted] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -202,7 +202,7 @@ function StatusDemo() {
 									ref={(el) => {
 										tabRefs.current[index] = el;
 									}}
-									tabIndex={isActive ? 0 : -1}
+									tabIndex={hasInteracted && isActive ? 0 : -1}
 									aria-selected={isActive}
 									aria-controls={tab.panelId}
 									onClick={() => setSelectedTab(tab.id)}
