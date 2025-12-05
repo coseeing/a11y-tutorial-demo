@@ -5,25 +5,23 @@ function TextVsIconDemo() {
 	return (
 		<div className="space-y-6">
 			<DemoSection
-				title="✅ 好的做法：使用文字"
+				title="✅ 良好：使用文字按鈕"
 				code={`<button>刪除</button>`}
 			>
 				<button className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
 					刪除
 				</button>
 				<ExplanationBox>
-					文字「刪除」會自動出現在 accessibility tree 中作為按鈕的
+					文字「刪除」會在 accessibility tree 中作為按鈕的
 					accessible name，不需要額外設定。
 				</ExplanationBox>
 			</DemoSection>
 
 			<DemoSection
-				title="❌ 不好的做法：僅使用 Icon 沒有替代文字"
+				title="❌ 錯誤：僅使用 Icon 且沒有描述性文字"
 				code={
-          `<button>
-  <svg>...</svg>
-</button>`
-        }
+					`<button><svg>...</svg></button>`
+				}
 			>
 				<button className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
 					<svg
@@ -41,12 +39,12 @@ function TextVsIconDemo() {
 			</DemoSection>
 
 			<DemoSection
-				title="✅ 好的做法：Icon 加上 aria-label"
+				title="✅ 良好：Icon 加上 aria-label"
 				code={
-          `<button aria-label="刪除">
-  <svg>...</svg>
+					`<button aria-label="刪除">
+	<svg>...</svg>
 </button>`
-        }
+				}
 			>
 				<button
 					aria-label="刪除"
@@ -62,18 +60,18 @@ function TextVsIconDemo() {
 					</svg>
 				</button>
 				<ExplanationBox>
-					使用 aria-label 提供文字描述，accessibility tree 會顯示「刪除」按鈕。
+					使用 aria-label 提供描述性文字，accessibility tree 會顯示「刪除」按鈕。
 				</ExplanationBox>
 			</DemoSection>
 
 			<DemoSection
-				title="✅ 另一個好的做法：視覺隱藏文字"
+				title="✅ 良好：視覺隱藏文字，但在 DOM 上仍可見"
 				code={
-          `<button>
-  <svg>...</svg>
-  <span className="sr-only">刪除</span>
+					`<button>
+	<svg>...</svg>
+	<span className="sr-only">刪除</span>
 </button>`
-        }
+				}
 			>
 				<button className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 relative">
 					<svg
@@ -87,8 +85,7 @@ function TextVsIconDemo() {
 					<span className="sr-only">刪除</span>
 				</button>
 				<ExplanationBox>
-					使用 sr-only class 隱藏視覺文字，但保留在 accessibility tree
-					中，對 SEO 也更友善。
+					使用 sr-only class 視覺上隱藏，但在 DOM 中仍會顯示，因此 accessibility tree 中可見。
 				</ExplanationBox>
 			</DemoSection>
 		</div>

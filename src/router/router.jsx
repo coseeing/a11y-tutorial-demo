@@ -1,19 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import A11yTreeDemo from "../component/A11yTreeDemo";
+import PageDemo from "../component/PageDemo";
 
 const routes = [
 	{
 		path: "/",
 		element: <App />,
 		children: [
-			{ index: true, element: <A11yTreeDemo /> },
+			{ index: true, element: <PageDemo /> },
 		],
 	},
 ];
 
 const router = createBrowserRouter(routes, {
-	basename: "/coseeing-a11y-tree-demo",
+	basename: "/a11y-tutorial-demo",
 	future: {
 		v7_relativeSplatPath: true,
 	},

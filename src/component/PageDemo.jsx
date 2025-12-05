@@ -3,9 +3,11 @@ import TextVsIconDemo from "./TextVsIconDemo";
 import LabelsDemo from "./LabelsDemo";
 import CorrectAriaDemo from "./CorrectAriaDemo";
 import WrongAriaDemo from "./WrongAriaDemo";
+import StatusDemo from "./StatusDemo";
+import RegionDemo from "./RegionDemo";
 import ComplexDemo from "./ComplexDemo";
 
-function A11yTreeDemo() {
+function A11yTutorialDemo() {
 	const [activeTab, setActiveTab] = useState("text");
 	const tabRefs = useRef({});
 
@@ -13,28 +15,37 @@ function A11yTreeDemo() {
 		{
 			id: "text",
 			title: "文字 vs Icon",
-			description:
-				"文字內容會自動出現在 accessibility tree 中，不需要額外的 aria-label",
+			description: "元素中的可見文字會自動成為 accessible name，但若元素僅包含 Icon 而沒有文字，則必須另外補上文字描述",
 		},
 		{
 			id: "labels",
-			title: "Label & Alt 屬性",
-			description: "展示 label、alt、aria-label、title 等屬性的差異",
+			title: "Input & Label",
+			description: "label 標籤與 alt、aria-label、title 屬性的使用情境與差異",
 		},
 		{
 			id: "aria",
-			title: "正確使用 ARIA",
-			description: "適當的 aria-label 和 aria-describedby 使用範例",
+			title: "正確的使用 ARIA",
+			description: "accessibility name 與 accessibility description 的使用與差別",
 		},
 		{
 			id: "wrong",
-			title: "錯誤使用 ARIA",
-			description: "不當使用 role 會導致 accessibility tree 失去語意",
+			title: "錯誤的使用 ARIA",
+			description: "錯誤使用 role 與 ARIA 屬性可能造成的無障礙問題。",
+		},
+		{
+			id: "status",
+			title: "狀態",
+			description: "正確標註元素的 status，讓輔助科技使用者了解當前狀態。",
+		},
+		{
+			id: "region",
+			title: "區塊",
+			description: "正確劃分內容區塊，讓輔助科技使用者了解版面佈局。",
 		},
 		{
 			id: "complex",
-			title: "進階組合",
-			description: "混合使用各種 ARIA 屬性的實際案例",
+			title: "其他",
+			description: "status message 與表單分組的無障礙技巧。",
 		},
 	];
 
@@ -61,10 +72,10 @@ function A11yTreeDemo() {
 	return (
 		<div className="max-w-6xl mx-auto p-6">
 			<h1 className="text-3xl font-bold mb-4">
-				114 年數位無障礙課程 demo
+				114 年數位無障礙課程
 			</h1>
 			<p className="text-gray-600 mb-8">
-				展示不同元素在 accessibility tree 中的呈現方式
+				開啟螢幕閱讀器 NVDA 和瀏覽器的 accessibility tree 瞧瞧吧！
 			</p>
 
 			{/* Tab Navigation */}
@@ -109,10 +120,12 @@ function A11yTreeDemo() {
 				{activeTab === "labels" && <LabelsDemo />}
 				{activeTab === "aria" && <CorrectAriaDemo />}
 				{activeTab === "wrong" && <WrongAriaDemo />}
+				{activeTab === "status" && <StatusDemo />}
+				{activeTab === "region" && <RegionDemo />}
 				{activeTab === "complex" && <ComplexDemo />}
 			</div>
 		</div>
 	);
 }
 
-export default A11yTreeDemo;
+export default A11yTutorialDemo;
